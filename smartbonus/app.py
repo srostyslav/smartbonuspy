@@ -12,7 +12,7 @@ class SmartBonus:
         self.store = store
 
     @catch_error
-    def get_client(self, user_id: str, **_) -> (Client, bool):
+    def get_client(self, user_id: str, **_) -> Client:
         """
         :param user_id: phone or scanned key from smartbonus app
         :return: If client exists in smartbonus app return its instance
@@ -21,7 +21,7 @@ class SmartBonus:
         return self._send_get('user/phone', Client, **self._get_params(user_id=user_id))
 
     @catch_error
-    def sync_nomenclatures(self, nomes: List[Nomenclature], **_) -> (str, bool):
+    def sync_nomenclatures(self, nomes: List[Nomenclature], **_) -> str:
         """
         Sync your catalog to smartbonus app
         warning: ensure that count of elements has to be less than or equal 500 in a request
@@ -41,19 +41,19 @@ class SmartBonus:
         raise ValueError(str(response))
 
     @catch_error
-    def discount_receipt(self, receipt: ReceiptDiscount, **_) -> (ReceiptResult, bool):
+    def discount_receipt(self, receipt: ReceiptDiscount, **_) -> ReceiptResult:
         """ Get discount of receipt """
 
         return self._send_post('receipt/discount', ReceiptResult, **self._get_params(**receipt.to_json()))
 
     @catch_error
-    def confirm_receipt(self, receipt: ReceiptConfirm, **_) -> (ReceiptResult, bool):
+    def confirm_receipt(self, receipt: ReceiptConfirm, **_) -> ReceiptResult:
         """ Confirmation of receipt """
 
         return self._send_post('receipt/confirm', ReceiptResult, **self._get_params(**receipt.to_json()))
 
     @catch_error
-    def delete_receipts(self, receipts: List[str], **_) -> (str, bool):
+    def delete_receipts(self, receipts: List[str], **_) -> str:
         """
         Delete previous confirmed receipts
         warning: ensure that count of elements has to be less than or equal 100 in a request
@@ -73,7 +73,7 @@ class SmartBonus:
         raise ValueError(str(response))
 
     @catch_error
-    def refund_receipt(self, receipt: ReceiptRefund, **_) -> (List[RefundItemResult], bool):
+    def refund_receipt(self, receipt: ReceiptRefund, **_) -> List[RefundItemResult]:
         """ Refund products of receipt """
 
         resp = self._send_post('refund/receipt', list, **self._get_params(**receipt.to_json()))
@@ -82,7 +82,7 @@ class SmartBonus:
         return resp
 
     @catch_error
-    def sync_receipts(self, receipts: List[ReceiptConfirm], **_) -> (str, bool):
+    def sync_receipts(self, receipts: List[ReceiptConfirm], **_) -> str:
         """
         Sync your catalog to smartbonus app
         warning: ensure that count of elements has to be less than or equal 100 in a request
@@ -101,7 +101,7 @@ class SmartBonus:
         raise ValueError(str(response))
 
     @catch_error
-    def sync_tags(self, tags: List[Tag], **_) -> (str, bool):
+    def sync_tags(self, tags: List[Tag], **_) -> str:
         """
         Sync list of tags
         warning: ensure that count of elements has to be less than or equal 500 in a request
@@ -119,7 +119,7 @@ class SmartBonus:
         raise ValueError(str(response))
 
     @catch_error
-    def config_order(self, order_url: str, status_url: str, token: str) -> (object, bool):
+    def config_order(self, order_url: str, status_url: str, token: str) -> object:
         """
         Config order hook:
         when user created order in smartbonus we send it to your api orderUrl with body Order class.
@@ -132,7 +132,7 @@ class SmartBonus:
                                **self._get_params(order_url=order_url, status_url=status_url, token=token))
 
     @catch_error
-    def change_order_status(self, body: StatusBody) -> (object, bool):
+    def change_order_status(self, body: StatusBody) -> object:
         """
         Change status of order that created in smartbonus app
         If status changed client receive push notification about it

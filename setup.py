@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="smartbonuspy",
-    version="0.0.1",
+    version="0.0.3",
     author="Rostyslav",
     author_email="rostyslav.rigroup@gmail.com",
     description="This package provides Python implementation of Smartbonus api. "
