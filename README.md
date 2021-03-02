@@ -25,8 +25,8 @@ set_root_path("https://your.smartbonus.com/api/v2/")
 sb = SmartBonus("your store id")
 
 # Get smartbonus info about client: catch error by self
-client, ok = sb.get_client('0555555555')
-print(client, ok)
+client = sb.get_client('0555555555')
+print(client)
 
 # Get erorr
 data, ok = sb.get_client('0555555555', raise_error=False)
