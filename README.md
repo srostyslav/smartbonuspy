@@ -16,7 +16,7 @@ Smartbonus package tested against Python 3.8.1
 
 ## Example
 
-```
+```python
 from smartbonus import SmartBonus, set_root_path
 
 # Creating sb
