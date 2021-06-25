@@ -10,7 +10,14 @@ ORDER_STATUSES: Dict[int, str] = {
     5: 'awaiting_pickup',
     6: 'completed',
     7: 'canceled',
-    8: 'refunded'
+    8: 'refunded',
+    9: 'awaiting_web_payment',
+    10: 'web_payment_successful',
+    12: 'awaiting_for_collect',
+    13: 'collecting',
+    14: 'transferred_for_delivery',
+    15: 'delivering',
+    16: 'cancel_request'
 }
 
 
@@ -158,7 +165,7 @@ class ReceiptConfirm(_BaseModel):
     """ Body for receipt confirmation """
 
     def __init__(self, _id: str, user_id: str, items: List[NomenclatureItem], discount: float = 0, date: int = 0,
-                 change: float = 0):
+                 change: float = 0, send_sms: bool = True):
         self.remote_id = _id
         self.user_id = user_id  # Phone or scanned key from smartbonus app
         if date:  # Date of receipt
@@ -167,6 +174,7 @@ class ReceiptConfirm(_BaseModel):
             self.discount = discount
         if change:  # Rest of money that will accrue to smartbonus account
             self.accrued = change
+        self.send_sms = send_sms
 
         self.list = []
         for item in items:
